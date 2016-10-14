@@ -1,4 +1,4 @@
-function [ output_args ] = PhotoinhibEV( Td )
+function [ Photo_poss,sumT4,sumT5 ] = PhotoinhibEV( Td,sumT5,sumT4,Tth,Ttc,Photo_poss )
 %% Metadata
 
 % Name: PhotoinhibEV.m
@@ -6,8 +6,7 @@ function [ output_args ] = PhotoinhibEV( Td )
 % Affiliation: Institute of Environmental Sciences (CML), Leiden University
 % Date Created: 26-05-2016
 % Date last changes: 13-06-2016
-% Description: Calculates when photoinhibition is stopped and
-% photosynthesis begins again (after Suni Tanja et al., 2003)
+% Description: Calculates when photoinhibition is stopped(after Suni Tanja et al., 2003)
 
 %% Summary
 %   Mean temperature above temperature threshold for 5 days (sumT5)
@@ -15,24 +14,42 @@ function [ output_args ] = PhotoinhibEV( Td )
 %   T5 works less in temperate areas, since there is a little bit of
 %   photosynthesis in evergreen trees if winter is less harsh
 
+%% Parameters
+
+
+
 %% Calculation
 
-%Read in Td file (same as for BudBurst.m)
+%Read in daily temp file (same as for BudBurst.m)
 
-Tth=5; %Temperature threshold for photoinhibition (in degrees Celsius). This threshold varies per species and location. --> functie van temperatuur ipv locatieafhankelijk
-
-sumT5 = 0;
-for day = 1:365
-    if sumT5 <5
-        if Td > Tth
-            sumT5 = sumT5 + 1;
-        else
-            sumT5 = 0;
-        end
+if sumT5 < 5
+    if Td > Tth
+        sumT5 = sumT5 + 1;
     else
-%         fotosynthese
+        sumT5 = 0;
     end
-end    
+else
+    Photo_poss=1;
+end
+
+if Photo_poss==1
+    sumT5 = 0;
+end
+
+%Stop Photosynthesis
+if sumT4 < 4
+    if Td < Ttc
+        sumT4 = sumT4 + 1;
+    else
+        sumT4 = 0;
+    end
+else
+    Photo_poss=0;
+end
+
+if Photo_poss==0
+    sumT4 = 0;
+end
 end
 
 
