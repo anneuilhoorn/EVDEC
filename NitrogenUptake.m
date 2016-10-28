@@ -13,7 +13,7 @@ function [ Nuptake ] = NitrogenUptake( Nsoil,FRm,RC,RootN,SRL )
 uptakespeed=0.5.*RootN; %in gN/m root/day. Function of root nitrogen, tbt. Nroot in gN/m2 soil/day
 RL=(FRm./RC).*SRL; %in m root/m2 soil (FRm in gC/m2 soil/day, RC is fraction, SRL in m root/g root)
 Nrootuptake=uptakespeed.*RL; %in gN/m2 soil/day
-Nuptake=min(Nsoil,Nrootuptake); %in gN/m2 soil/day
+Nuptake=min(Nsoil,Nrootuptake); %in gN/m2 soil/day. Make this change gradual (see Oskars voorbeeld)
 
 %% Costs of active uptake and myccorhiza (lumped)
 

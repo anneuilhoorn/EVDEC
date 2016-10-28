@@ -30,14 +30,13 @@ end
 T=xlsread('DeBilt2015_temperature.xlsx','C2:C366'); %Temperature in degrees Celsius, for 2015 De Bilt, The Netherlands
 
 
-
-
 %% EVDEC
 
 
 for year=1
     ValueofSumA=zeros(1,365);
     ValueofNPP=zeros(1,365);
+    ValueofLAI=zeros(1,365);
     for day=1:365
         
         %Temperature
@@ -63,24 +62,28 @@ for year=1
         end
             
         %Photosynthesis
+        TotalC=WCRm+NSCm+FRm+LSCm+PCm;
+        LAI=TotalC.*(1/LMA).*(1/Cfraction); %LAI is wayyyyyy high (correct pool sizes? LMA & C fraction are averages from Kattge et al., 2011). Normal values of LAI will only exist with ~50gC/m2 soil total Carbon
         if Photo_poss == 1;
-            [A,SumA,GPP,Ra,NPP] = farqtotal(Na, T(day), pCO2, LAI, Tree, rw, y); %in gC m-2 soil day-1
+            [A,SumA,GPP,Ra,NPP] = farqtotal(Na, T(day), pCO2, Tree, rw, y, LAI); %in gC m-2 soil day-1
         else
             A=0;
             SumA=0;
         end
         
-        ValueofSumA(day)=SumA; %PHOTOSYNTHESIS IS STILL WEIRD
+        ValueofLAI(day)=LAI;
+        ValueofSumA(day)=SumA; 
+        ValueofNPP(day)=NPP; 
         
         %Nitrogen uptake
         [ Nuptake ] = NitrogenUptake( Nsoil,FRm,RC,RootN,SRL );
 
         %Mass balance carbon
-        [ NPP, Wm, NSCsm, CRm, NSCrm, FRm, LDMCm, PCm, Reprm ] = Carbon_mass( NPP, LLS, Wm, NSCsm, CRm, NSCrm, FRm, LDMCm, PCm, Reprm);
+        [ NPP, WCRm, NSCm, FRm, LSCm, PCm, Reprm ] = Carbon_mass( NPP, LLS, WCRm, NSCm, FRm, LSCm, PCm, Reprm);
         ValueofNPP(day)=NPP; %PCm should feedback photosynthesis capacity
         
         %Mass balance nitrogen
-        [ Nuptake, WNm, NSNsm, CRNm, NSNrm, FRNm, LNm, PNm, ReprNm ] = Nitrogen_mass( Nuptake, LLS, WNm, NSNsm, CRNm, NSNrm, FRNm, LNm, PNm, ReprNm);
+        [ Nuptake, WCRNm, NSNm, FRNm, LNm, PNm, ReprNm ] = Nitrogen_mass( Nuptake, LLS, WCRNm, NSNm, FRNm, LNm, PNm, ReprNm);
          
         %Resorption        
         if (Tree==1) && (Fall==LLS); 

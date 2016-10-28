@@ -1,4 +1,4 @@
-function [A,SumA,TotalGPP,Ra,NPP]=farqtotal(Na, T, pCO2, LAI, Tree, rw, y)
+function [A,SumA,TotalGPP,Ra,NPP]=farqtotal(Na, T, pCO2, Tree, rw, y, LAI)
 %% Metadata
 
 % Name: farqtotal.m
@@ -11,6 +11,8 @@ function [A,SumA,TotalGPP,Ra,NPP]=farqtotal(Na, T, pCO2, LAI, Tree, rw, y)
 %% inputs
 % T temperature (C)
 Tk=T+273;
+
+
 
 %% model constants --> Sharkey parameters
 

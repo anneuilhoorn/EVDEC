@@ -1,4 +1,4 @@
-function [ Nuptake, WNm, NSNsm, CRNm, NSNrm, FRNm, LNm, PNm, ReprNm ] = Nitrogen_mass( Nuptake, LLS, WNm, NSNsm, CRNm, NSNrm, FRNm, LNm, PNm, ReprNm)
+function [ Nuptake, WCRNm, NSNm, FRNm, LNm, PNm, ReprNm ] = Nitrogen_mass( Nuptake, LLS, WCRNm, NSNm, FRNm, LNm, PNm, ReprNm)
 %% Metadata
 
 % Name: Nitrogen_mass.m
@@ -20,37 +20,20 @@ run('MassParameters.m');
 
 %Wturnoverrate=(WNm.*0.025)/365; %Turnoverrate of wood per day (after
 %Whittaker et al., 1974) -->becomes incredibly small
-WNturnover=WNm.*Wturnoverrate; %Wood. NOTE: same turnover rate as for carbon?
-Mw = 1e-6.*WNm;  %defineer als variabele bovenin (unit meegeven)
-WNall=fwn.*Nuptake;
-WNin = WNall; %all in grams
-WNout = WNturnover + Mw; %all in grams
-dWNdt = WNin - WNout; %dWdt in grams per day
-WNm=WNm+dWNdt; %Wm in grams total,dWdt in grams per day
+WCRNturnover=WCRNm.*WCRNturnoverrate; %Wood. NOTE: same turnover rate as for carbon?
+Mwcr = 1e-6.*WCRNm;  %defineer als variabele bovenin (unit meegeven)
+WCRNall=fwcrn.*Nuptake;
+WCRNin = WCRNall; %all in grams
+WCRNout = WCRNturnover + Mwcr; %all in grams
+dWCRNdt = WCRNin - WCRNout; %dWdt in grams per day
+WCRNm=WCRNm+dWCRNdt; %Wm in grams total,dWdt in grams per day
 
-Mortnsns=1e-6.*NSNsm; %Non Structural Nitrogen in stem.
-NSNsall=fnsns.*Nuptake;
-NSNsout=Mortnsns;
-NSNsin=NSNsall;
-dNSNsdt=NSNsin-NSNsout;
-NSNsm=NSNsm+dNSNsdt;
-
-TotalstemN=WNm+NSNsm; %Total N in stem
-
-Mcr=1e-6.*CRNm; %Coarse roots N
-CRNturnover=CRNm.*CRNturnoverrate;
-CRNall=fcrn.*Nuptake;
-CRNin=CRNall;
-CRNout=CRNturnover+Mcr;
-dCRNdt=CRNin-CRNout;
-CRNm=CRNm+dCRNdt;
-
-Mnsnr=1e-6.*NSNrm; %Non Structural N in roots.
-NSNrall=fnsnr.*Nuptake;
-NSNrout=Mnsnr;
-NSNrin=NSNrall;
-dNSNrdt=NSNrin-NSNrout;
-NSNrm=NSNrm+dNSNrdt;
+Mortnsn=1e-6.*NSNm; %Non Structural Nitrogen in stem.
+NSNall=fnsn.*Nuptake;
+NSNout=Mortnsn;
+NSNin=NSNall;
+dNSNdt=NSNin-NSNout;
+NSNm=NSNm+dNSNdt;
 
 Mfrn=1e-6.*FRNm; %Fine roots and mycorrhiza N
 FRNturnoverrate=TObase+(TOnitro.*RootN); %(Hikosaka, 2005) --> CHECK THIS
@@ -61,8 +44,6 @@ FRNin=FRNall;
 FRNout=FRNturnover+Mfrn;
 dFRNdt=FRNin-FRNout;
 FRNm=FRNm+dFRNdt;
-
-TotalrootsN=CRNm+NSNrm+FRNm; %Total N in roots
 
 Mln=1e-6.*LNm; %Leaf Dry Matter Content
 LNherbrate=0.003/365; %probability of 0.3 per year --> make function of LDMC/LeafC --> probability is not same as fraction
@@ -85,8 +66,6 @@ PNout = PNturnover+Mpn+PNherbivory; %Resorption added to out on a yearly basis a
 dPNdt=PNin-PNout;
 PNm=PNm+dPNdt;
 
-TotalcanopyN=LNm+PNm;
-
 ReprNall=fr.*Nuptake;
 ReprNin=ReprNall;
 ReprNout=ReprNall; %All reproductive biomass leaves the tree in the end, but some is subject to herbivory.
@@ -95,7 +74,7 @@ ReprNout=ReprNall; %All reproductive biomass leaves the tree in the end, but som
 dReprNdt=ReprNin-ReprNout;
 ReprNm=ReprNm+dReprNdt;
 
-TotalbiomassN=WNm+NSNsm+CRNm+NSNrm+FRNm+LNm+PNm+ReprNm;
+TotalbiomassN=WCRNm+NSNm+FRNm+LNm+PNm+ReprNm;
 
 
 end

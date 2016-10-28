@@ -9,34 +9,28 @@
 
 %% Pools
 
-%Carbon pools
-Wm = 300000; %Initial stemwood C mass (g/m2 soil)
-NSCsm = 100000;  %Initial Non Structural Carbon in stem mass (g/m2 soil)  --> Only use slow reserves (starch)
-CRm = 100000; %Initial Coarse roots C mass (g/m2 soil)
-NSCrm = 10000; %Initial Non Structural Carbon in roots, or root storage mass (g/m2 soil)
-FRm = 50000; %Intitial Fine roots and mycorrhiza C mass (g/m2 soil)
-LDMCm = 150000; %Initial Leaf Dry Matter Content (g/m2 soil)
-PCm = 20000; %Initial Leaf Photoactive C mass (g/m2 soil)
-Reprm = 10000; %Initial Carbon in reproductive organs (g/m2 soil)
+%Carbon pools (Check pool sizes
+WCRm = 500; %Initial stemwood and coarse roots C mass (g/m2 soil)
+NSCm = 100;  %Initial Non Structural Carbon in stem and root mass (g/m2 soil)  --> Only use slow reserves (starch)
+FRm = 50; %Intitial Fine roots and mycorrhiza C mass (g/m2 soil)
+LSCm = 100; %Initial Leaf Structural Carbon (g/m2 soil)
+PCm = 30; %Initial Leaf Photoactive C mass (g/m2 soil)
+Reprm = 20; %Initial Carbon in reproductive organs (g/m2 soil)
 
-Totalbiomassinit=740e3;
-
-Lm=LDMCm+PCm; %total leaf mass (g/m2 soil)
+Lm=LSCm+PCm; %total leaf mass (g/m2 soil)
 
 %Nitrogen pools
-WNm = 50000; %Initial stemwood N mass (g/m2 soil)
-NSNsm = 10000; %Initial Non Structural Nitrogen in stem mass (g/m2 soil)
-CRNm = 10000; %Initial Coarse roots N mass (g/m2 soil)
-NSNrm = 5000; %Initial Non Structural Nitrogen in roots, or root storage mass (g/m2 soil)
-FRNm = 2500; %Intitial Fine roots and mycorrhiza N mass (g/m2 soil)
-LNm = 3000; %Initial Leaf N (non-photosynthetic) (g/m2 soil)
-PNm = 1500; %Initial Leaf Photoactive N mass (g/m2 soil)
-ReprNm = 500; %Initial nitrogen in reproductive organs (g/m2 soil)
+WCRNm = 60; %Initial stemwood N mass (g/m2 soil)
+NSNm = 15; %Initial Non Structural Nitrogen in stem and root mass (g/m2 soil)
+FRNm = 25; %Intitial Fine roots and mycorrhiza N mass (g/m2 soil)
+LNm = 30; %Initial Leaf N (non-photosynthetic) (g/m2 soil)
+PNm = 15; %Initial Leaf Photoactive N mass (g/m2 soil)
+ReprNm = 5; %Initial nitrogen in reproductive organs (g/m2 soil)
 
 %Nc=LNm+PNm; %total leaf mass (g/m2 soil)
 
 %Soil pools
-Nsoil = 1000; % in gN/m2 soil/day RANDOM NUMBER, LOOK UP BETTER INFO
+Nsoil = 6000; % in gN/m2 soil/day 
 
 %% Photosynthesis
 
@@ -45,8 +39,9 @@ pCO2=0.78.*Ca; %Should I make this a gradient: [0.1:0.01:0.8]
 
 
 %% Nitrogen 
-Na=75; %We want to optimize this through the canopy
-%Na=(1.5+8.*LMA)./1000; %THIS IS A RANDOM VALUE FOR TESTING! Nitrogen per area --> function of LMA (in gN m-2) loskoppelen
+Na=1.59; %Leaf N content per area (g m-2) (average value in Try database, Kattge et al. 2011) %We want to optimize this through the canopy
+Nm=17.4; %Leaf N content per dry mass (mg g-1) (average value in Try database, Kattge et al. 2011)
+CNratio=23.4; % Leaf carbon/nitrogen ratio (g g-1) (average value in Try database, Kattge et al. 2011)
 
 %% Respiration
 
@@ -58,23 +53,22 @@ rw = r.*(1+qr.*fr+fs); %Maintenance respiration per unit N in the canopy (g C g-
 
 %% Turnover
 
-Wturnoverrate=0.025/365; %Turnoverrate of wood per day (after Whittaker et al., 1974)
-CRturnoverrate=0.025/365; %Same as wood for now
+WCRturnoverrate=0.025/365; %Turnoverrate of wood per day (after Whittaker et al., 1974)
 %CRturnoverrate=(0.08.*CRm)/365; %Gill & Jackson, 2000
 TObase = 0.789; %basic turnover rate (Hikosaka, 2005)
 TOnitro = 0.191; %turnover rate influenced by root N (Hikosaka, 2005)
-CRNturnoverrate=0.025/365; %Same as Carbon
+WCRNturnoverrate=0.025/365; %Same as Carbon
 
 %%
 
 %Canopy parameters
-LMA=150; % in g/m2 leaf Poorter et al 2009: 30-300g/m2 --> this should become emergent
-%LMA=LeafThickness.*LeafDensity
-%LAI=LDMCm./LMA; %Leaf area index (m2 leaf/m2 soil)
-LAI=1;
+SLA=16.6; %in mm2 mg-1 (average value in Try database, Kattge et al. 2011)
+LMA=(1./SLA).*1000; % in g/m2 leaf. (.*1000 is to convert from mg/mm2 to g/m2). Poorter et al 2009: 30-300g/m2 --> this should become emergent
+Cfraction=0.476; %Average Leaf C content per dry mass (g g-1) (average value in Try database, Kattge et al. 2011)
+
 y = 0.7; %carbon efficiency (Choudhury, 2001) (no units)
 
-RootN=0.05; %THIS IS A RANDOM VALUE FOR TESTING!
+RootN=0.00967; %Root nitrogen content per dry mass (g g-1) (average value in Try database, Kattge et al. 2011)
 SRL=15; %Guestimate, in m root g-1 root
 RC=0.5; %Fraction of root carbon content
 
