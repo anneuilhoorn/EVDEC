@@ -45,20 +45,6 @@ if Sf > F_star
     Photo_poss=1;
 end
 
-%HOW: I want bud burst to happen on the day of 'break'. How do I continue
-%with this number?
-
-
-
-% %% Allocation of
-% 
-% FrA=0.4; %Fraction of Available NSC used for bud burst. NOTE: There is not a simple
-% %distinction between available and unavailable NSC (Dietze et al., 2014)
-% 
-% AddforBB=(FrA.*NSCsm)+(FrA.*NSCrm);
-% CostConvergence=AddforBB.*0.1; %10 percent cost of starch to sugar. NOTE: this is a fictional number, look up how much ATP this costs.
-% 
-% TotalCforBB=AddforBB-CostConvergence;
 
 
 

@@ -13,11 +13,11 @@
 WCRm = 500; %Initial stemwood and coarse roots C mass (g/m2 soil)
 NSCm = 100;  %Initial Non Structural Carbon in stem and root mass (g/m2 soil)  --> Only use slow reserves (starch)
 FRm = 50; %Intitial Fine roots and mycorrhiza C mass (g/m2 soil)
-LSCm = 100; %Initial Leaf Structural Carbon (g/m2 soil)
+LDMCm = 100; %Initial Leaf Structural Carbon (g/m2 soil)
 PCm = 30; %Initial Leaf Photoactive C mass (g/m2 soil)
 Reprm = 20; %Initial Carbon in reproductive organs (g/m2 soil)
 
-Lm=LSCm+PCm; %total leaf mass (g/m2 soil)
+Lm=LDMCm+PCm; %total leaf mass (g/m2 soil)
 
 %Nitrogen pools
 WCRNm = 60; %Initial stemwood N mass (g/m2 soil)
@@ -42,6 +42,9 @@ pCO2=0.78.*Ca; %Should I make this a gradient: [0.1:0.01:0.8]
 Na=1.59; %Leaf N content per area (g m-2) (average value in Try database, Kattge et al. 2011) %We want to optimize this through the canopy
 Nm=17.4; %Leaf N content per dry mass (mg g-1) (average value in Try database, Kattge et al. 2011)
 CNratio=23.4; % Leaf carbon/nitrogen ratio (g g-1) (average value in Try database, Kattge et al. 2011)
+CNratioleaf=29; %Sitch et al., 2003
+CNratioFR=29; %Sitch et al., 2003
+CNratiowood=330; %Sitch et al., 2003
 
 %% Respiration
 
@@ -89,4 +92,5 @@ CD=0; %Chilling Days counter
 GGD=0; %Starting point
 Fall=0; %Leaf fall counter
 NPP=0; %Starting point
-
+BBout=0.4; %40 percent goes to bud burst
+BBNout=0.4; %40 percent goes to bud burst

@@ -9,9 +9,9 @@ function [A,SumA,TotalGPP,Ra,NPP]=farqtotal(Na, T, pCO2, Tree, rw, y, LAI)
 % Description: Photosynthesis 
 
 %% inputs
+
 % T temperature (C)
 Tk=T+273;
-
 
 
 %% model constants --> Sharkey parameters
