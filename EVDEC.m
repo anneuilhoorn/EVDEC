@@ -21,7 +21,7 @@ run('Parameters.m');
 
 
 %Evergreen (0) or Deciduous (1) - for now, later replaced by emergent prop
-Tree = 1;
+Tree = 0;
 if Tree == 1
     LLS=200; %NOTE: Weng et al. LLS proportionalto LMA (LLS=constant.*LMA)
 else
@@ -40,6 +40,7 @@ T=xlsread('DeBilt2015_temperature.xlsx','C2:C366'); %Temperature in degrees Cels
 
 for year=1
     ValueofPhoto_poss=zeros(1,365);
+    AddedGPP =zeros(1,365);
     for day=1:365
         
         %Temperature
@@ -91,15 +92,15 @@ for year=1
         TotalC=WCRm+NSCm+FRm+LDMCm+PCm;
         LAI=TotalC.*(1/LMA).*(1/Cfraction); %LAI is wayyyyyy high (correct pool sizes? LMA & C fraction are averages from Kattge et al., 2011). Normal values of LAI will only exist with ~50gC/m2 soil total Carbon
         if Photo_poss == 1;
-            [A,SumA,GPP,Ra,NPP] = farqtotal(Na, T(day), pCO2, Tree, rw, y, LAI); %in gC m-2 soil day-1
+            [A,TotalGPP,Ra,NPP] = farqtotal(Na, T(day), pCO2, Tree, rw, y, LAI); %in gC m-2 soil day-1
         else
             A=0;
-            SumA=0;
+            TotalGPP=0;
             Ra=0;
         end
         
         ValueofLAI(day)=LAI;
-        ValueofSumA(day)=SumA;
+        ValueofTotalGPP(day)=TotalGPP;
         ValueofNPP(day)=NPP;
         
         %Nitrogen uptake
@@ -121,14 +122,28 @@ for year=1
             %RESORPTION
         end
         
-        
+%         TotalGPP = [1:365];
+% 
+%         apple = zeros(size(banana));
+%         apple(1) = banana(1);
+% 
+%         for i = 2:size(banana,2)
+% 	    apple(i) = apple(i-1)+banana(i);
+%         end
+% 
+%         for i = 1:size(apple,2)
+% 	    apple(i)
+%         end
+    
+      
     end
     
 end
 
 x=1:365;
 figure(1)
-plot(x, ValueofSumA)
+plot(x, ValueofTotalGPP)
+
 
 
 

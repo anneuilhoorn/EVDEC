@@ -15,7 +15,7 @@ RL=(FRm./RC).*SRL; %in m root/m2 soil (FRm in gC/m2 soil/day, RC is fraction, SR
 Nrootuptake=uptakespeed.*RL; %in gN/m2 soil/day
 Nuptake=min(Nsoil,Nrootuptake); %in gN/m2 soil/day. Make this change gradual (see Oskars voorbeeld)
 
-%% Costs of active uptake and myccorhiza (lumped)
+%% Costs of active uptake and mycorrhiza (lumped)
 
 % To take x gN/m2 soil out of the soil it costs x gC/m2 soil
 % Cost estimation?

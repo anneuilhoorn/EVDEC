@@ -63,7 +63,7 @@ else NSCtreshold = 0;
 end
     
 dW = 0.3.*Cfixed; %in g C m-2 soil
-dNSC= max(0,NSCtreshold).*Cfixed; %in g C m-2 soil
+dNSC= NSCtreshold.*Cfixed; %in g C m-2 soil
 dRepr = 0; %in g C m-2 soil
 dLDMC = (0.002.*LLSleft-0.1).*Cfixed; %Linear function of relation LDMC allocation and LLS left %in g C m-2 soil
 dPhotoC = Call.*Cfixed; %Optimization %in g C m-2 soil
@@ -81,7 +81,7 @@ dLN = NCratioleaf * dLDMC * (1-Cfcleaf) / (1 - Cfnleaf); %in g N m-2 soil
 dPhotoN = Nall; %Optimization %in g N m-2 soil
 dNSN = Nuptake - dWN - dFRN - dLN - dReprN; %in g N m-2 soil
 
-%% Construction costs
+%% Growth respiration
 
 dWcc = dW * (1-Cfcwood);
 dNSCcc = dNSC * (1-Cfcstarch);
@@ -97,7 +97,7 @@ dLNcc = dLN * (1-Cfnleaf);
 dPhotoNcc = dPhotoN * (1-Cfnleaf);
 dFRNcc = dFRN * (1-Cfnroot);
 
-%% Total allocation
+%% Actual allocation to pools
 
 dWN = dWN - dWNcc;
 dNSN = dNSN - dNSNcc;

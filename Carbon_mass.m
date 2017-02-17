@@ -24,31 +24,32 @@ run('MassParameters.m');
 
  %Wturnoverrate=(Wm.*0.025)/365; %Turnoverrate of wood per day (after
     %Whittaker et al., 1974) -->becomes incredibly small
-    WCRturnover=WCRm.*WCRturnoverrate; %Wood
-    Mwcr = 1e-6.*WCRm;  %defineer als variabele bovenin (unit meegeven) --> Mortaliteit klopt nog steeds niet.  
+    %WCRturnover=WCRm.*WCRturnoverrate; %Wood
+    WCRturnover=1;
+    %Mwcr = 1e-6.*WCRm;  %defineer als variabele bovenin (unit meegeven) --> Mortaliteit klopt nog steeds niet.  
     WCRin = dW; %all in grams
-    WCRout = WCRturnover + Mwcr; %all in grams
+    WCRout = WCRturnover;% + Mwcr; %all in grams
     dWCRdt = WCRin - WCRout; %dWdt in grams per day
     WCRm=WCRm+dWCRdt; %Wm in grams total,dWdt in grams per day 
     
-    Mortnsc=1e-6.*NSCm; %Non Structural Carbon in stem. A yearly cycle should be added for the leaf/root resorption into the NSCs at the end of the favourable season and the...
+   % Mortnsc=1e-6.*NSCm; %Non Structural Carbon in stem. A yearly cycle should be added for the leaf/root resorption into the NSCs at the end of the favourable season and the...
     %bud burst at the beginning of the favourable season for deciduous species. I have to find out how resorption works in evergreen trees
-    NSCout=Mortnsc;
+    NSCout=0;%Mortnsc;
     NSCin=dNSC;
     dNSCdt=NSCin-NSCout;
     NSCm=NSCm+dNSCdt;
           
-    Mfr=1e-6.*FRm; %Fine roots and mycorrhiza
+    %Mfr=1e-6.*FRm; %Fine roots and mycorrhiza
     FRturnoverrate=TObase+(TOnitro.*RootN); %(Hikosaka, 2005) --> CHECK THIS
     %FRturnoverrate=(0.65.*FRm)/365; %Gill & Jackson, 2000
     FRturnover=FRm.*FRturnoverrate;
     FRin=dFR;
-    FRout=FRturnover+Mfr;
+    FRout=FRturnover;%+Mfr;
     dFRdt=FRin-FRout;
     FRm=FRm+dFRdt;
     
      
-    Mldmc=1e-6.*LDMCm; %Leaf Dry Matter Content
+    %Mldmc=1e-6.*LDMCm; %Leaf Dry Matter Content
     a=1; %?????
     b=2; %?????
     LDMCherb=-a.*(LDMCm/(PCm+LDMCm))+b; %what are a and b??? Herbivory per day in g/m2 soil.
@@ -56,17 +57,17 @@ run('MassParameters.m');
     LDMCturnover=LDMCm.*LDMCturnoverrate;
     LDMCherbivory=LDMCm.*LDMCherb;
     LDMCin=dLDMC;
-    LDMCout=LDMCturnover+Mldmc+LDMCherbivory; %add a yearly layer of resorption out of the system // add relative herbivory
+    LDMCout=LDMCturnover+LDMCherbivory;%Mldmc+ %add a yearly layer of resorption out of the system // add relative herbivory
     dLDMCdt=LDMCin-LDMCout;
     LDMCm=LDMCm+dLDMCdt;
     
-    Mpc=1e-6.*PCm; %Photosynthetic carbon
+    %Mpc=1e-6.*PCm; %Photosynthetic carbon
     PCherbrate=0.3/365; %probability of 0.3 per year --> make function of LDMC/LeafC --> probability is not same as fraction
     PCturnoverrate=(1/LLS); %inverse of leaf life span --> make dependent on LDMC, Leaf C:N/Leaf N...;
     PCherbivory=PCm.*PCherbrate;
     PCturnover=PCm.*PCturnoverrate;
     PCin = dPhotoC; %Bud burst added on a yearly basis at beginning of fav season
-    PCout = PCturnover+Mpc+PCherbivory; %Resorption added to out on a yearly basis at the end of fav season
+    PCout = PCturnover+PCherbivory;%Mpc+ %Resorption added to out on a yearly basis at the end of fav season
     dPCdt=PCin-PCout;
     PCm=PCm+dPCdt;
     

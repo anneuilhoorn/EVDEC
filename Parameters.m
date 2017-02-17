@@ -19,6 +19,8 @@ Reprm = 20; %Initial Carbon in reproductive organs (g/m2 soil)
 
 Lm=LDMCm+PCm; %total leaf mass (g/m2 soil)
 
+AddTotalGPP=0;
+
 %Nitrogen pools
 WCRNm = 60; %Initial stemwood N mass (g/m2 soil)
 NSNm = 15; %Initial Non Structural Nitrogen in stem and root mass (g/m2 soil)
@@ -46,13 +48,7 @@ CNratioleaf=29; %Sitch et al., 2003
 CNratioFR=29; %Sitch et al., 2003
 CNratiowood=330; %Sitch et al., 2003
 
-%% Respiration
 
-r = 0.031; %basic respiration rate per unit N (g C g-1 N day-1) (roughly after Reich et al., 2008)
-qr = 1.2; %factor to compensate higher respiration per N in fine roots (Ryan et al., 1996)
-fs = 0.6; %Nsapwood:Ncanopy ratio (look for number)
-fr = 0.35; %Nfineroot:Ncanopy ratio (look for number)
-rw = r.*(1+qr.*fr+fs); %Maintenance respiration per unit N in the canopy (g C g-1 N day-1)
 
 %% Turnover
 
