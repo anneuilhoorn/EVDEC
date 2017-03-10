@@ -29,10 +29,10 @@ if sumT5 < 5
         sumT5 = 0;
     end
 else
-    Photo_poss=1;
+    Photo_poss=100;
 end
 
-if Photo_poss==1
+if Photo_poss==100
     sumT5 = 0;
 end
 

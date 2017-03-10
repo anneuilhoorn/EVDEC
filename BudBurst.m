@@ -42,7 +42,7 @@ Sf = Sf + GDD; %Daily cumulative rate of forcing
 F_star = w*exp(k*Sc); %NOTE: this is species specific! (in Chuine, 2000 is was between 15-80). w>0, k<0
 
 if Sf > F_star
-    Photo_poss=1;
+    Photo_poss=100;
 end
 
 

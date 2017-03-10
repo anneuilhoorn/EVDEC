@@ -9,12 +9,14 @@
 
 %% Pools
 
+treedeath=0;
+
 %Carbon pools (Check pool sizes
 WCRm = 500; %Initial stemwood and coarse roots C mass (g/m2 soil)
-NSCm = 100;  %Initial Non Structural Carbon in stem and root mass (g/m2 soil)  --> Only use slow reserves (starch)
+NSCm = 102;  %Initial Non Structural Carbon in stem and root mass (g/m2 soil)  --> Only use slow reserves (starch)
 FRm = 50; %Intitial Fine roots and mycorrhiza C mass (g/m2 soil)
-LDMCm = 100; %Initial Leaf Structural Carbon (g/m2 soil)
-PCm = 30; %Initial Leaf Photoactive C mass (g/m2 soil)
+LDMCm = 0; %Initial Leaf Structural Carbon (g/m2 soil)
+PCm = 0; %Initial Leaf Photoactive C mass (g/m2 soil)
 Reprm = 20; %Initial Carbon in reproductive organs (g/m2 soil)
 
 Lm=LDMCm+PCm; %total leaf mass (g/m2 soil)
@@ -62,7 +64,8 @@ WCRNturnoverrate=0.025/365; %Same as Carbon
 
 %Canopy parameters
 SLA=16.6; %in mm2 mg-1 (average value in Try database, Kattge et al. 2011)
-LMA=(1./SLA).*1000; % in g/m2 leaf. (.*1000 is to convert from mg/mm2 to g/m2). Poorter et al 2009: 30-300g/m2 --> this should become emergent
+%LMA=(1./SLA).*1000; % in g/m2 leaf. (.*1000 is to convert from mg/mm2 to g/m2). Poorter et al 2009: 30-300g/m2 --> this should become emergent
+LMA=100;
 Cfraction=0.476; %Average Leaf C content per dry mass (g g-1) (average value in Try database, Kattge et al. 2011)
 
 y = 0.7; %carbon efficiency (Choudhury, 2001) (no units)

@@ -21,5 +21,6 @@ rw = r.*(1+qr.*fr+fs); %Maintenance respiration per unit N in the canopy (g C g-
 Nc=Na.*LAI; %gN/m2 soil/day = gN/m2 leaf/day .* m2 leaf/m2 soil
 Rm = rw.*Nc; %Maintenance respiration, after Ryan et al. 1996)
 
+
 end
 

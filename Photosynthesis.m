@@ -1,11 +1,11 @@
-function [TotalGPP]=Photosynthesis(Na, T, pCO2, Tree, LAI)
+function [TotalGPP, Av, Aj] = Photosynthesis(Na, T, pCO2, Tree, LAI)
 %% Metadata
 
-% Name: farqtotal.m
+% Name: Photosynthesis.m
 % Creator: Anne Uilhoorn
 % Affiliation: Institute of Environmental Sciences (CML), Leiden University
 % Date Created: 01-06-2016
-% Date last changes: 14-02-2017
+% Date last changes: 20-02-2017
 % Description: Photosynthesis 
 
 %% inputs
@@ -73,10 +73,4 @@ for layer = 1:layeramount
     
     TotalGPP = TotalGPP+GPPlayer; %in gC m-2 soil day-1
     
-%     Nc=Na.*LAI; %gN/m2 soil/day = gN/m2 leaf/day .* m2 leaf/m2 soil
-%     Rm = rw.*Nc; %Maintenance respiration, after Ryan et al. 1996)
-%     %Rg = (1-y).*(TotalGPP-Rm); %Growth respiration
-%     %Ra = Rm + Rg; %All Respiration
-%     NPP = TotalGPP - Rm;
-end
 end
